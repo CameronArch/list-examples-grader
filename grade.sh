@@ -39,7 +39,7 @@ exit 1
 fi
 
 
-java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > results.txt
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamplesS > results.txt
 
 grep -i "OK" results.txt > success.txt
 grep -i "Failure" results.txt > failure.txt
