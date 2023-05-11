@@ -15,35 +15,37 @@ echo 'Finished cloning'
 # Then, add here code to compile and run, and do any post-processing of the
 # tests
 
-file = `find -name "ListExamples.java"`
+file=`find student-submission/ListExamples.java`
 
-if [[! -f $file]]
+if [[ (! -f $file) ]]
 then 
 echo "Not correct file submitted"
 exit 1 
 fi
 
-cp -r ListExamples.java grading-area
+
+cp -r $file grading-area
 cp -r lib grading-area
+cp -r *.java grading-area
 
-javac $file 2> CompileError.txt
+cd grading-area
 
-if [[$? -ne 0]]
+javac -cp $CPATH *.java 2> CompileError.txt
+
+if [[ ($? -ne 0) ]]
 then
-echo CompileError.txt
+cat CompileError.txt
 exit 1
 fi
 
-javac $CPATH TestListExamples.java
-java $CPATH org.junit.runner.JUnitCore TestListExamples > results.txt
 
-grep -n "OK" results.txt > success.txt
-grep -n "Failure!!!" result.txt > failure.txt
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > results.txt
 
-if [[wc -l failure.txt -ne 0 ]]
-then 
-echo failure.txt
+grep -i "OK" results.txt > success.txt
+grep -i "Failure" results.txt > failure.txt
 
-else
-echo success.txt
-fi
+
+echo `cat failure.txt`
+
+
+echo `cat success.txt`
