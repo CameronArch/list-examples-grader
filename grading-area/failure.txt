@@ -1,3 +1,0 @@
-There was 1 failure:
-FAILURES!!!
-Tests run: 1,  Failures: 1
